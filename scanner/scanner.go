@@ -3,6 +3,7 @@ package scanner
 import (
 	"fmt"
 	"net"
+	"time"
 
 	"github.com/fahmifj/gscan/util"
 )
@@ -19,16 +20,20 @@ type Result struct {
 }
 
 func NewGoScan(h, p string) *Scanner {
+	port := util.ParsePorts(p)
+	if port == nil {
+		return nil
+	}
 	return &Scanner{
 		Hostname: h,
-		Ports:    util.SplitPorts(p),
+		Ports:    port,
 	}
 }
 
 func TCPScan(host, port string) *Result {
 	addr := util.JoinAddr(host, port)
 	svc := util.KnownPorts[port]
-	conn, err := net.Dial("tcp", addr)
+	conn, err := net.DialTimeout("tcp", addr, 1*time.Second)
 	if err != nil {
 		return &Result{
 
