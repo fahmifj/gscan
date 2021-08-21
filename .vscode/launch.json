@@ -5,20 +5,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Test Host",
+			"name": "Debug Single Port",
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
-			"program": "${fileDirname}",
+			"program": "${workspaceFolder}",
 			"args": ["-h", "192.168.1.15","-p", "123"]
 		},
 		{
-			"name": "Test Ports",
+			"name": "Debug Multi Ports",
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
-			"program": "${fileDirname}",
-			"args": ["-h", "192.168.43.15","-p", "80-88"]
+			"program": "${workspaceFolder}",
+			"args": ["-h", "127.0.0.1","-p", "1,2,3,4,5,6,7,8,9,10"]
 		}
 	]
 }

@@ -6,44 +6,44 @@ import (
 
 func TestWantErrWeirdArguments(t *testing.T) {
 	port := "-50-asdasd,50,"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 }
 
 func TestWantErrSinglePortButString(t *testing.T) {
 	port := "iamf"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 }
 
 func TestWantErrMultiPortButString(t *testing.T) {
 	port := "50-iamf"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 	port = "iamf-50"
-	s = ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err = ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 }
 
 func TestWantErrLowerPortHigherPort(t *testing.T) {
 	port := "0-65535"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 }
 
 func TestSwapHigherPortToLowerPort(t *testing.T) {
 	port := "1024-1"
-	s := ParsePorts(port)
+	s, _ := ParsePorts(port)
 	if s == nil {
 		t.Errorf("Swap is expected, got %v", s)
 	}
@@ -51,17 +51,17 @@ func TestSwapHigherPortToLowerPort(t *testing.T) {
 
 func TestWantErrInvalidPortNumber(t *testing.T) {
 	port := "65536"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	s, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", s)
 	}
 }
 
 func TestWantErrInvalidPortRange(t *testing.T) {
 	port := "-2-5"
-	s := ParsePorts(port)
-	if s != nil {
-		t.Errorf("nil is expected, got %v", s)
+	_, err := ParsePorts(port)
+	if err == nil {
+		t.Errorf("error is expected, got %v", err)
 	}
 }
 
@@ -75,17 +75,16 @@ func TestWantErrCheckHost(t *testing.T) {
 func TestValidPortNumber(t *testing.T) {
 	port := "80,445,"
 
-	s := ParsePorts(port)
-	if s == nil {
-		t.Errorf("got nil")
+	_, err := ParsePorts(port)
+	if err != nil {
+		t.Errorf("got error %v", err)
 	}
 }
 
 func TestValidPortRange(t *testing.T) {
 	port := "443-445"
-
-	s := ParsePorts(port)
+	s, err := ParsePorts(port)
 	if s == nil {
-		t.Errorf("got nil")
+		t.Errorf("got error %v", err)
 	}
 }

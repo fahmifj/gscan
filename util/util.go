@@ -6,6 +6,10 @@ import (
 	"strings"
 )
 
+func ToLower(s string) string {
+	return strings.ToLower(s)
+}
+
 // JoinAddr joins host and port into an acceptable address format (socket)
 func JoinAddr(host, port string) string {
 	addr := fmt.Sprintf("%s:%s", host, port)
