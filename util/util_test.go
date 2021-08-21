@@ -83,8 +83,8 @@ func TestValidPortNumber(t *testing.T) {
 
 func TestValidPortRange(t *testing.T) {
 	port := "443-445"
-	s, err := ParsePorts(port)
-	if s == nil {
+	_, err := ParsePorts(port)
+	if err != nil {
 		t.Errorf("got error %v", err)
 	}
 }

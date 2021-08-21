@@ -55,7 +55,7 @@ func (s *Scanner) Run(ctx context.Context) {
 
 		}()
 	}
-	// Iterate over port send each port to portChannel
+	// Iterate over ports send each port to portChannel
 	for _, port := range s.Ports {
 		portChan <- port
 	}
@@ -71,7 +71,7 @@ func (s *Scanner) TCPScan(port string) Result {
 	svc := util.KnownPorts[port]
 	// construct address
 	addr := util.JoinAddr(util.ToLower(s.Hostname), port)
-	// idk why this returns nil
+	// connect to port
 	conn, err := net.DialTimeout(util.ToLower(s.Mode), addr, 1*time.Second)
 	// conn, err := net.Dial("tcp", addr)
 	if err != nil {

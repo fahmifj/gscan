@@ -27,6 +27,7 @@ func SplitAddr(addr string) (string, string) {
 	return ip, port
 }
 
+// Todo:
 func CheckHostAliveness(host string) bool {
 	ip := regexp.MustCompile(`(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}`)
 	switch ip.MatchString(host) {
