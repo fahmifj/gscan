@@ -66,6 +66,7 @@ func TestWantErrInvalidPortRange(t *testing.T) {
 }
 
 func TestWantErrCheckHost(t *testing.T) {
+	t.Skip("Not implemented")
 	// host := "192.168.123.123"
 	// ok := CheckHost(host)
 	// if ok {

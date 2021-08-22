@@ -1,6 +1,6 @@
 package util
 
-//  at ports.txt| grep -v '^#\|udp' > all-tcp-ports.txt
+// cat ports.txt| grep -v '^#\|udp' > all-tcp-ports.txt
 // cat all-tcp-ports.txt | awk '{print $1,$2}' | cut -d '/' -f1 > tcp-ports-filtered.txt
 // cat all-tcp-ports.txt | awk '{print $2}' | cut -d '/' -f1 | head -n 1024 > 1024-ports.txt
 // cat all-tcp-ports.txt | awk '{print $1}' | cut -d '/' -f1 | head -n 1024 > 1024-services.txt

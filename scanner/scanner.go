@@ -17,6 +17,7 @@ func NewScanner(opts *Options) *Scanner {
 	return &Scanner{opts}
 }
 
+// Run is run
 func (s *Scanner) Run() {
 	// portChannel is used for transfering a single port
 	portChan := make(chan string)
@@ -39,13 +40,18 @@ func (s *Scanner) Run() {
 	go func() {
 		start := time.Now()
 		// This is going to be ugly if the port that has 3 digits number
-		fmt.Printf("PORT	STATE	SERVICE\n")
+		fmt.Printf("[*] Scan starting at %s\n", time.Now().Format("2006.01.02 15:04:05"))
+		fmt.Printf("[*] Target host: %s\n", s.Hostname)
+		fmt.Printf("[*] Scanning: %d ports\n", len(s.Ports))
+		fmt.Printf("[*] Threads: %d\n\n", s.Threads)
+		fmt.Printf("PORT	\tSTATE	SERVICE\n")
+
 		for {
 			res, ok := <-resultChan
 			if !ok {
 				break
 			}
-			fmt.Printf("%v/tcp	%v	%v\n", res.Port, res.State, res.Service)
+			fmt.Printf("%v/tcp	\t%v	%v\n", res.Port, res.State, res.Service)
 		}
 		duration := time.Since(start)
 		fmt.Printf("\n")
@@ -70,7 +76,7 @@ func (s *Scanner) Run() {
 
 }
 
-func (s *Scanner) TCPScan(portChan chan string, wg *sync.WaitGroup, result chan<- Result) {
+func (s *Scanner) TCPScan(portChan <-chan string, wg *sync.WaitGroup, result chan<- Result) {
 	defer wg.Done()
 	for {
 		port, ok := <-portChan
@@ -99,6 +105,6 @@ func (s *Scanner) TCPScan(portChan chan string, wg *sync.WaitGroup, result chan<
 		// Note: This going to be error because the conn is nil
 		//
 		// defer conn.Close()
-	}
 
+	}
 }

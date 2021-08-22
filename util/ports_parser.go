@@ -49,7 +49,7 @@ func ParsePorts(port string) ([]string, error) {
 		}
 
 		// Before generating port numbers
-		// tower port and higher port need to be converted to integer.
+		// lower port and higher port need to be converted to integer.
 		loPort, err := strconv.Atoi(strings.TrimSpace(dirtyPorts[0]))
 		if err != nil {
 			return nil, fmt.Errorf("specified port must be a number")

@@ -3,7 +3,8 @@ package cli
 import (
 	"flag"
 	"fmt"
-	"time"
+	"os"
+	"os/signal"
 
 	"github.com/fahmifj/gscan/scanner"
 	"github.com/fahmifj/gscan/util"
@@ -49,12 +50,14 @@ func Execute() {
 		fmt.Printf("%v\n", err)
 		return
 	}
-
 	scan := scanner.NewScanner(opts)
-	fmt.Printf("[*] Scan starting at %s\n", time.Now().Format("2006.01.02 15:04:05"))
-	fmt.Printf("[*] Target host: %s\n", opts.Hostname)
-	fmt.Printf("[*] Scanning: %d ports\n", len(opts.Ports))
-	fmt.Printf("[*] Threads: %d\n\n", opts.Threads)
-	scan.Run()
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, os.Interrupt)
+	go func() {
+		<-sigChan
+		fmt.Println("\n[!] Keyboard interrupt detected, exiting...")
+		os.Exit(0)
+	}()
 
+	scan.Run()
 }
