@@ -1,12 +1,13 @@
 package scanner
 
-type CLIOptions struct {
+type Options struct {
 	Hostname string
 	Ports    []string
 	Threads  int
-	Mode     string
+	TimeOut  int
+	Verbose  bool
 }
 
-func NewCliOpt() *CLIOptions {
-	return &CLIOptions{}
+func NewOptions() *Options {
+	return &Options{}
 }

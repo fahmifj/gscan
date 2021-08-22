@@ -17,7 +17,7 @@ func JoinAddr(host, port string) string {
 }
 
 // SplitAddr splits a given host:port
-func SplitAddr(addr string) (string, string) {
+func SplitAddrToHostPort(addr string) (string, string) {
 	if addr == "" {
 		return "", ""
 	}
@@ -25,6 +25,12 @@ func SplitAddr(addr string) (string, string) {
 	ip := s[0]
 	port := s[1]
 	return ip, port
+}
+
+// SplitAddr splits a given host:port
+func SplitAddrToPort(addr string) string {
+	_, port := SplitAddrToHostPort(addr)
+	return port
 }
 
 // Todo:

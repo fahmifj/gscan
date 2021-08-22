@@ -5,12 +5,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "Debug Threads",
+			"type": "go",
+			"request": "launch",
+			"mode": "auto",
+			"program": "${workspaceFolder}",
+			"args": ["-h", "192.168.2.106","-t", "1", "-p", "80,88,443"]
+		},
+		{
 			"name": "Debug Single Port",
 			"type": "go",
 			"request": "launch",
 			"mode": "auto",
 			"program": "${workspaceFolder}",
-			"args": ["-h", "192.168.1.15","-p", "123"]
+			"args": ["-h", "192.168.2.106","-p", "80"]
 		},
 		{
 			"name": "Debug Multi Ports",
